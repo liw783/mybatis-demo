@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper代理开发,namespace有重要作用,与ibatis的不同 -->
+<mapper namespace="com.liw.mybatis.demo.mapper.UserMapper">
+	<!-- 开启本mapper的namespace下的二级缓存 -->
+	<cache/>
+	<resultMap type="user" id="userResultMap">
+		<id column="_id" property="id"/>
+		<result column="_username" property="username"/>
+	</resultMap>
+	<sql id="query_user_where">
+		<if test="userCustom!=null">
+			<if test="userCustom.sex!=null and userCustom.sex!=''">
+			and user.sex = #{userCustom.sex}
+			</if>
+			<if test="userCustom.username!=null and userCustom.username!=''">
+			and user.username like '%${userCustom.username}%'
+			</if>
+			<if test="ids!=null">
+			<foreach collection="ids" item="user_id" open="and id in (" close=")" separator="," >
+				#{user_id}
+			</foreach>
+			</if>
+		</if>
+	</sql>
+	
+	<select id="findUserList" parameterType="com.liw.mybatis.demo.po.UserQueryVo" resultType="com.liw.mybatis.demo.po.UserCustom">
+	select * from user
+	<where>
+		<include refid="query_user_where"></include>
+	</where>
+	</select>
+	<select id="findUserCount" parameterType="com.liw.mybatis.demo.po.UserQueryVo" resultType="int">
+	<where>
+		<include refid="query_user_where"></include>
+	</where>
+	</select>
+	
+	<!-- 使用result map映射 -->
+	<select id="findUserListResultMap" parameterType="com.liw.mybatis.demo.po.UserQueryVo" resultMap="userResultMap">
+	select id as _id , username as _username from user
+	<where>
+		<include refid="query_user_where"></include>
+	</where>
+	</select>
+	<!-- 
+		id:statement的id
+		将sql语句封装到mapped statement对象中
+		
+		parameterType:输入参数类型
+		#{}表示占位符 ,可以是简单类型,pojo,hashmap
+		如果是简单类型,大括号内名字任意 
+		
+		resultType:输出结果类型
+		
+		-->
+	<select id="findUserById" parameterType="int" resultType="User">
+	select * from user where id = #{id}
+	</select>
+	
+	<!-- 
+	resultType代表单条记录所映射的java对象
+	${}表示将输入参数不加任何修饰拼接到sql中,这种方式会引起sql注入，不推荐
+	如果是简单类型,大括号内名字必须是value
+	 --> 
+	<select id="findUserByName" parameterType="java.lang.String" resultType="com.liw.mybatis.demo.po.User">
+	select * from user where username like '%${value}%'
+	</select>
+	
+	<!-- 自增插入 -->
+	<insert id="insertUser" parameterType="com.liw.mybatis.demo.po.User" >
+	<!--
+	select last_insert_id()得到刚插入数据的主键
+	将插入数据的主键返回，设置到User对象 
+	keyProperty:设置到对象的哪个字段
+	order:last_insert_id()的执行顺序，相对与insert语句
+	
+	 -->
+	<selectKey keyProperty="id" order="AFTER" resultType="int">
+	select last_insert_id()
+	</selectKey>
+	insert into user (username,sex,address,birthday) value (#{username},#{sex},#{address},#{birthday})
+	</insert>
+	
+	<!-- 非自增插入 -->
+	<!--
+	select uuid()得到要插入数据的主键
+	执行过程：
+	通过uuid()生成主键，将其设置到User对象的id中，插入后从user对象中取出id值
+	将插入数据的主键返回，设置到User对象 
+	 -->
+	 <!-- 
+	<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+	select uuid()
+	</selectKey>
+	insert into user (id,username,sex,address,birthday) value (#{id},#{username},#{sex},#{address},#{birthday})
+	</insert>
+	 -->
+	 
+	 <!-- 删除 -->
+	 <delete id="deleteUser" parameterType="int">
+	 delete from user where id=#{id}
+	 </delete>
+	 
+	 <!-- 更新
+	 注意：要传入id值，否则会更新全部
+	  -->
+	 <update id="updateUser" parameterType="com.liw.mybatis.demo.po.User">
+	 update user set username=#{username},sex=#{sex},address=#{address},birthday=#{birthday} where id=#{id}
+	 </update>
+	
+</mapper>

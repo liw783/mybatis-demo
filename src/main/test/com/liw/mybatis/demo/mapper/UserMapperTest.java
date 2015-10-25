@@ -52,20 +52,20 @@ public class UserMapperTest {
 //		
 //	}
 	
-//	@Test
-//	public void testFindUserCount() throws Exception {
-//		SqlSession session=sqlSessionFactory.openSession();
-//		UserMapper mapper = session.getMapper(UserMapper.class);
-//		UserCustom uc=new UserCustom();
-//		uc.setSex("1");
-//		uc.setUsername("小");
-//		UserQueryVo vo=new UserQueryVo();
-//		vo.setUserCustom(uc);
-//		int count = mapper.findUserCount(vo);
-//		session.close();
-//		System.out.println(count);
-//		
-//	}
+	@Test
+	public void testFindUserCount() throws Exception {
+		SqlSession session=sqlSessionFactory.openSession();
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		UserCustom uc=new UserCustom();
+		uc.setSex("1");
+		uc.setUsername("小");
+		UserQueryVo vo=new UserQueryVo();
+		vo.setUserCustom(uc);
+		int count = mapper.findUserCount(vo);
+		session.close();
+		System.out.println(count);
+		
+	}
 	
 	@Test
 	public void testFindUserList() throws Exception {

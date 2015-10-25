@@ -3,65 +3,63 @@ package com.liw.mybatis.demo.po;
 import java.util.Date;
 
 public class Items {
+    private Integer id;
 
-	private int id;
-	
-	private String name;
-	
-	private float price;
-	
-	public int getId() {
-		return id;
-	}
+    private String name;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    private Float price;
 
-	public String getName() {
-		return name;
-	}
+    private String pic;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private Date createtime;
 
-	public float getPrice() {
-		return price;
-	}
+    private String detail;
 
-	public void setPrice(float price) {
-		this.price = price;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getDetail() {
-		return detail;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setDetail(String detail) {
-		this.detail = detail;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getPic() {
-		return pic;
-	}
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 
-	public void setPic(String pic) {
-		this.pic = pic;
-	}
+    public Float getPrice() {
+        return price;
+    }
 
-	public Date getCreatetime() {
-		return createtime;
-	}
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
-	}
+    public String getPic() {
+        return pic;
+    }
 
-	private String detail;
-	
-	private String pic;
-	
-	private Date createtime;
+    public void setPic(String pic) {
+        this.pic = pic == null ? null : pic.trim();
+    }
 
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail == null ? null : detail.trim();
+    }
 }

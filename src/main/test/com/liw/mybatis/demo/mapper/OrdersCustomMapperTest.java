@@ -27,53 +27,53 @@ public class OrdersCustomMapperTest {
 		this.sqlSessionFactory=sqlSessionFactory;
 	}
 
-//	@Test
-//	public void testFindOrdersUser() throws Exception{
-//		SqlSession session=sqlSessionFactory.openSession();
-//		OrdersCustomMapper mapper = session.getMapper(OrdersCustomMapper.class);
-//		List<OrdersCustom> orders = mapper.findOrdersList();
-//		for(OrdersCustom o:orders){
-//			System.out.println(o.getUsername()+" "+o.getSex()+" "+o.getAddress());
-//		}
-//		session.close();
-//	}
+	@Test
+	public void testFindOrdersUser() throws Exception{
+		SqlSession session=sqlSessionFactory.openSession();
+		OrdersCustomMapper mapper = session.getMapper(OrdersCustomMapper.class);
+		List<OrdersCustom> orders = mapper.findOrdersList();
+		for(OrdersCustom o:orders){
+			System.out.println(o.getUsername()+" "+o.getSex()+" "+o.getAddress());
+		}
+		session.close();
+	}
 	
-//	@Test
-//	public void testFindOrdersUserResultMap() throws Exception{
-//		SqlSession session=sqlSessionFactory.openSession();
-//		OrdersCustomMapper mapper = session.getMapper(OrdersCustomMapper.class);
-//		List<Orders> orders = mapper.findOrdersListResultMap();
-//		for(Orders o:orders){
-//			System.out.println(o.getUser().getUsername()+" "+o.getUser().getSex()+" "+o.getUser().getAddress());
-//		}
-//		session.close();
-//	}
+	@Test
+	public void testFindOrdersUserResultMap() throws Exception{
+		SqlSession session=sqlSessionFactory.openSession();
+		OrdersCustomMapper mapper = session.getMapper(OrdersCustomMapper.class);
+		List<Orders> orders = mapper.findOrdersListResultMap();
+		for(Orders o:orders){
+			System.out.println(o.getUser().getUsername()+" "+o.getUser().getSex()+" "+o.getUser().getAddress());
+		}
+		session.close();
+	}
 	
-//	@Test
-//	public void testFindOrdersDetailListResultMap() throws Exception{
-//		SqlSession session=sqlSessionFactory.openSession();
-//		OrdersCustomMapper mapper = session.getMapper(OrdersCustomMapper.class);
-//		List<Orders> orders = mapper.findOrdersDetailListResultMap();
-//		for(Orders o:orders){
-//			System.out.println(o.getUser().getUsername()+" "+o.getUser().getSex()+" "+o.getUser().getAddress());
-//		}
-//		session.close();
-//	}
-//	@Test
-//	public void testFindUserItemsResultMap() throws Exception{
-//		SqlSession session=sqlSessionFactory.openSession();
-//		OrdersCustomMapper mapper = session.getMapper(OrdersCustomMapper.class);
-//		List<User> users = mapper.findUserItemsResultMap();
-//		for(User o:users){
-//			System.out.println(o.toString());
-//		}
-//		//一级缓存测试
-//		List<User> users2 = mapper.findUserItemsResultMap();
-//		for(User o:users2){
-//			System.out.println(o.toString());
-//		}
-//		session.close();
-//	}
+	@Test
+	public void testFindOrdersDetailListResultMap() throws Exception{
+		SqlSession session=sqlSessionFactory.openSession();
+		OrdersCustomMapper mapper = session.getMapper(OrdersCustomMapper.class);
+		List<Orders> orders = mapper.findOrdersDetailListResultMap();
+		for(Orders o:orders){
+			System.out.println(o.getUser().getUsername()+" "+o.getUser().getSex()+" "+o.getUser().getAddress());
+		}
+		session.close();
+	}
+	@Test
+	public void testFindUserItemsResultMap() throws Exception{
+		SqlSession session=sqlSessionFactory.openSession();
+		OrdersCustomMapper mapper = session.getMapper(OrdersCustomMapper.class);
+		List<User> users = mapper.findUserItemsResultMap();
+		for(User o:users){
+			System.out.println(o.toString());
+		}
+		//一级缓存测试
+		List<User> users2 = mapper.findUserItemsResultMap();
+		for(User o:users2){
+			System.out.println(o.toString());
+		}
+		session.close();
+	}
 	//二级缓存测试
 	@Test
 	public void testCache() throws Exception{
